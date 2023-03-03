@@ -1,4 +1,31 @@
-# Junior_IS
+# SyntaxStation
+
+Programming E-Learning system is a app for setup online courses with so many functionality.
+It is a PHP project.
 
 
-The project for my Junior IS will focus on designing and developing a customized learning management system (LMS) that addresses the unique needs of computer science students. The proposed LMS will be a web-based application that will provide students with a cen- tralized platform for accessing source codes, taking tests, and tracking their progress. The system will also include features such as interactive simulations, coding exercises, and collab- orative learning tools to enhance student engagement and learning outcomes. By creating a user-friendly and centralized platform that includes interactive and collaborative features, the proposed LMS will help computer science students to better understand complex con- cepts, apply them to real-world problems and improve their critical thinking skills.
+Instalation ::
+### Steps
+1)Copy full folder in your web directory.
+2)Import database in your phpmyadmin named project1.sql
+3)Edit dbconnection file.change username,password and database name.
+- Default user is root,password is null and database name is project1.
+
+Default admin email id is hguarnera@wooster.edu and password is cs200
+admin password is md5 encrypted.
+
+## Precise Explanation regarding the work in detail :
+INSTALLATION STEPS :
+1. Copy zip file and Unzip file on your local server.
+2. Put this file inside WAMP or XAMPP server.
+3. Database Configuration
+- Open phpmyadmin
+- Create Database named project1​.
+- Import database project1.sql from downloaded folder(inside database)
+4. Open Your browser put inside "http://localhost/syntaxstation/"
+5. To Login as admin put the following details.
+- Admin Login Details
+- Login Id: hguarnera@wooster.edu
+- Password: cs200
+
+
