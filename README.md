@@ -29,3 +29,23 @@ INSTALLATION STEPS :
 - Password: cs200
 
 
+Intermediate Code 2
+what’s update?
+- almost finished backend and database
+- done with admin portion
+    - track students
+    - track student course history 
+    - can see available courses
+    - add courses
+    - delete courses
+    - add prof
+    - deleete prof
+- now, prof can add course content and quizzes using ckeditor text editor 
+    - pdf, images, youtube video
+
+what’s next?
+- implement certificate feature
+- test backend functionality (some data is not retrieving from database) + test database interaction
+- finish frontend
+- lock course 
+- add progress bar for course progress (admin)

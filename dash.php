@@ -77,7 +77,7 @@ if (!isset($email)) {
                             </li>
                             <li class="dropdown nav-item <?php if (@$_GET['q'] == 4 || @$_GET['q'] == 5) echo 'active'; ?>">
                                 <span class="iconify" data-icon="akar-icons:gear" data-width="30" data-height="30"></span>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Modules</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Course</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a href="dash.php?q=4&step=3">Add Course</a></li>
                                     <li class="nav-item"><a href=" dash.php?q=5">Remove Course</a></li>
@@ -729,7 +729,7 @@ if (!isset($email)) {
                                             <table class="table table-striped title1">
                                                 <tr>
                                                     <td>
-                                                        <b>Modules</b>
+                                                        <b>Courses</b>
                                                     </td>
                                                     <td>
                                                         <b>Title</b>
