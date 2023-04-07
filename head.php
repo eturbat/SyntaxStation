@@ -3,7 +3,7 @@ include_once 'dbConnection.php';
 $ref=@$_GET['q'];
 $email = $_POST['uname'];
 $password = $_POST['password'];
-
+//
 
 $result = mysqli_query($con,"SELECT email FROM admin WHERE email = '$email' and password = '$password'") or die('Error');
 $count=mysqli_num_rows($result);

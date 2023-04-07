@@ -12,7 +12,7 @@ if (isset($_GET['demail'])) {
   $role = $_GET['role'];
   $result = $role == "student" ? 11 : 12;
   header("location:dash.php?q=".$result);
-  
+  //
 }
 
 //delete admin
