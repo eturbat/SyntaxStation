@@ -6,7 +6,6 @@ if(isset($_SESSION['email'])) {
 }
 
 $ref = @$_GET['q'];
-//
+
 header("location:$ref");
 ?>
-//

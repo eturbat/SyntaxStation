@@ -64,7 +64,7 @@ body
   /* font-family: 'Montserrat, sans-serif'; */
   font-size:35px;
   color:#ffbb33;
-  margin:0px;
+  margin:15px;
 }
 
 .title1{
@@ -424,7 +424,8 @@ span.file-name {
 
 
 /* module container active class */
-.page-content .module-container.active .icon{
+.page-content
+.module-container.active .icon{
   background-color: #2c3e50;
 }
 
