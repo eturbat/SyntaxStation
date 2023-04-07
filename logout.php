@@ -9,3 +9,4 @@ $ref = @$_GET['q'];
 //
 header("location:$ref");
 ?>
+//

@@ -113,7 +113,7 @@ if (isset($_SESSION['result'])) {
                                             </div>
                                             
                                             ';
-
+//
                                             $result = mysqli_query($con, "SELECT * FROM quiz ORDER BY date") or die('Error');
 
                                             $c = 1;

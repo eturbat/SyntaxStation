@@ -21,4 +21,4 @@ if($count==1) {
     header("location:dash.php?q=0");
 }
 else header("location:$ref?w=Warning : Access denied");
-?>
+?>//
