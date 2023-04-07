@@ -1,9 +1,5 @@
 # SyntaxStation
 
-Programming E-Learning system is a app for setup online courses with so many functionality.
-It is a PHP project.
-
-
 Instalation ::
 ### Steps
 1)Copy full folder in your web directory.
