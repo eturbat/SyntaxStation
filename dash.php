@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>MySafeCampus</title>
+    <title>SyntaxStation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,6 +141,11 @@ if (!isset($email)) {
                             <!--admin dashboard start-->
                             <div class="row">
                                 <div class="col-lg-12 ">
+                                    <!-- /* adding quiz details. It checks if the GET parameter 'q' is equal to 4
+                                    and the GET parameter 'step' is not set. If the condition is
+                                    true, it generates a form with input fields for course. The form is submitted to the
+                                    'update.php' script with the POST method and the quiz ID is
+                                    passed as a GET parameter. */ -->
                                     <?php
                                     if (@$_GET['q'] == 4 && !(@$_GET['step'])) {
                                         $eid = $_GET['moduleID'];
@@ -151,7 +156,6 @@ if (!isset($email)) {
                                                     <form class="form-horizontal title1" name="form" action="update.php?q=addquiz&eid=' . $eid . '"  method="POST">
                                                         <fieldset>
 
-
                                                         <!-- Text input-->
                                                         <div class="form-group">
                                                             <label class="col-md-12 control-label" for="name"></label>  
@@ -160,8 +164,6 @@ if (!isset($email)) {
                                                                 
                                                             </div>
                                                         </div>
-
-
 
                                                         <!-- Text input-->
                                                         <div class="form-group">
@@ -204,6 +206,12 @@ if (!isset($email)) {
                                     }
                                     ?>
 
+                                   <!-- /* allows users to input course readings/contentts. The
+                                   form has two options for inputting the readings: uploading a PDF
+                                   file or entering text with images and videos using a CKEditor.
+                                   The script uses conditional statements to display the appropriate
+                                   form based on the user's selection. The CKEditor is configured
+                                   with various features and plugins. */ -->
                                     <?php
                                     if (@$_GET['q'] == 4 && (@$_GET['step']) == 3) {
                                         echo '
@@ -267,7 +275,8 @@ if (!isset($email)) {
                                                 </div>
                                             </div>
                                             ';
-
+                                        // configuring CKEditor 5 tool for texteditor. (The CKEditor is configured
+                                        // with various features and plugins.)
                                         echo '
                                             <script>
                                                 $("#pdfForm").hide();
@@ -432,26 +441,6 @@ if (!isset($email)) {
                                     }
                                     ?>
 
-                                    <?php if (@$_GET['q'] == 7) {
-
-                                        $result = mysqli_query($con, "SELECT * FROM quiz where email='$email' ORDER BY date DESC") or die('Error');
-                                        echo  '<div class="panel"><table class="table table-striped title1">
-<tr><td><b>S.N.</b></td><td><b>Topic</b></td><td><b>Total question</b></td><td><b>Marks</b></td><td><b>Time limit</b></td><td></td></tr>';
-                                        $c = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $title = $row['title'];
-                                            $total = $row['total'];
-                                            $sahi = $row['sahi'];
-                                            $time = $row['time'];
-                                            $eid = $row['eid'];
-                                            echo '<tr><td>' . $c++ . '</td><td>' . $title . '</td><td>' . $total . '</td><td>' . $sahi * $total . '</td><td>' . $time . '&nbsp;min</td>
-	<td><b><a href="update.php?q=rmquiz&eid=' . $eid . '" class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Remove</b></span></a></b></td></tr>';
-                                        }
-                                        $c = 0;
-                                        echo '</table></div>';
-                                    }
-                                    ?>
-
                                     <!--add quiz end-->
 
                                     <!--add quiz step2 start-->
@@ -531,8 +520,28 @@ if (!isset($email)) {
                                     <?php if (@$_GET['q'] == 5) {
 
                                         $result = mysqli_query($con, "SELECT * FROM quiz ORDER BY date DESC") or die('Error');
-                                        echo  '<div class="panel"><table class="table table-striped title1">
-<tr><td><b>S.N.</b></td><td><b>Topic</b></td><td><b>Total question</b></td><td><b>Marks</b></td><td><b>Time limit</b></td><td></td></tr>';
+                                        echo  '
+                                        <div class="panel">
+                                        <table class="table table-striped title1">
+                                            <tr>
+                                                <td>
+                                                    <b>S.N.</b>
+                                                </td>
+                                                <td>
+                                                    <b>Topic</b>
+                                                </td>
+                                                <td>
+                                                    <b>Total question</b>
+                                                </td>
+                                                <td>
+                                                    <b>Marks</b>
+                                                </td>
+                                                <td>
+                                                    <b>Time limit</b>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>';
                                         $c = 1;
                                         while ($row = mysqli_fetch_array($result)) {
                                             $title = $row['title'];
@@ -540,8 +549,24 @@ if (!isset($email)) {
                                             $sahi = $row['sahi'];
                                             $time = $row['time'];
                                             $eid = $row['eid'];
-                                            echo '<tr><td>' . $c++ . '</td><td>' . $title . '</td><td>' . $total . '</td><td>' . $sahi * $total . '</td><td>' . $time . '&nbsp;min</td>
-	<td><b><a href="update.php?q=rmquiz&eid=' . $eid . '" class="pull-right btn sub1" style="margin:0px;background:red"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Remove</b></span></a></b></td></tr>';
+                                            echo '
+                                            <tr>
+                                                <td>' . $c++ . '</td>
+                                                <td>' . $title . '</td>
+                                                <td>' . $total . '</td>
+                                                <td>' . $sahi * $total . '</td>
+                                                <td>' . $time . '&nbsp;min</td>
+	                                            <td>
+                                                    <b>
+                                                        <a href="update.php?q=rmquiz&eid=' . $eid . '" class="pull-right btn sub1" style="margin:0px;background:red">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;
+                                                            <span class="title1">
+                                                                <b>Remove</b>
+                                                            </span>
+                                                        </a>
+                                                    </b>
+                                                </td>
+                                            </tr>';     
                                         }
                                         $c = 0;
                                         echo '</table></div>';
@@ -554,41 +579,36 @@ if (!isset($email)) {
                                     <?php
                                     if (@$_GET['q'] == 8) {
                                         echo ' 
-<div class="row">
-<span class="title1" style="margin-left:40%;font-size:30px;"><b>Enter Admin Details</b></span><br /><br />
-<div class="col-md-3"></div><div class="col-md-6">   <form class="form-horizontal title1" name="form" action="signadmin.php"  method="POST">
-<fieldset>
+                                        <div class="row">
+                                            <span class="title1" style="margin-left:40%;font-size:30px;"><b>Enter Admin Details</b></span><br /><br />
+                                        <div class="col-md-3"></div><div class="col-md-6">   <form class="form-horizontal title1" name="form" action="signadmin.php"  method="POST">
+                                        <fieldset>
 
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label" for="name"></label>  
+                                            <div class="col-md-12">
+                                                <input id="email" name="email" placeholder="Enter Admin Email" class="form-control input-md" type="email">
+                                            </div>
+                                        </div>
 
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-12 control-label" for="name"></label>  
-<div class="col-md-12">
-<input id="email" name="email" placeholder="Enter Admin Email" class="form-control input-md" type="email">
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label" for="total"></label>  
+                                            <div class="col-md-12">
+                                                <input id="password" name="password" placeholder="Enter password" class="form-control input-md" type="password">
+                                            </div>
+                                        </div>
 
-</div>
-</div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label" for=""></label>
+                                            <div class="col-md-12"> 
+                                                <input  type="submit" style="margin-left:45%" class="btn btn-primary" value="Submit" class="btn btn-primary"/>
+                                            </div>
+                                        </div>
 
-
-
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-12 control-label" for="total"></label>  
-<div class="col-md-12">
-<input id="password" name="password" placeholder="Enter password" class="form-control input-md" type="password">
-
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-md-12 control-label" for=""></label>
-<div class="col-md-12"> 
-<input  type="submit" style="margin-left:45%" class="btn btn-primary" value="Submit" class="btn btn-primary"/>
-</div>
-</div>
-
-</fieldset>
-</form></div>';
+                                        </fieldset>
+                                        </form></div>';
                                     }
                                     ?>
                                     <!--add admin end-->
@@ -598,22 +618,36 @@ if (!isset($email)) {
                                     <?php if (@$_GET['q'] == 9) {
 
                                         $result = mysqli_query($con, "SELECT * FROM admin where role ='admin' ") or die('Error');
-                                        echo  '<div class="panel"><table class="table table-striped title1">
-<tr><td><b>Email</b></td><td></td></tr>';
+                                        echo  '
+                                        <div class="panel">
+                                            <table class="table table-striped title1">
+                                                <tr>
+                                                    <td>
+                                                        <b>Email</b>
+                                                    </td>
+                                                <td></td>
+                                                </tr>';
                                         $c = 1;
                                         while ($row = mysqli_fetch_array($result)) {
 
                                             $email = $row['email'];
-
-
-                                            echo '<tr><td>' . $email . '</td>
-<td><a title="Delete User" href="update.php?demail1=' . $email . '"><b><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></b></a></td></tr>';
+                                            echo '
+                                            <tr>
+                                                <td>' . $email . '</td>
+                                                <td>
+                                                    <a title="Delete User" href="update.php?demail1=' . $email . '">
+                                                        <b>
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                        </b>
+                                                    </a>
+                                                </td>
+                                            </tr>';
                                         }
                                         $c = 0;
                                         echo '</table></div>';
                                     } ?>
-
-
+                                    
+                                    <!-- // Admin dashboard -->
                                     <?php
                                     if (@$_GET['q'] == 10) {
 
@@ -656,9 +690,8 @@ if (!isset($email)) {
                                     }
 
                                     ?>
-                                    <!--user end-->
 
-
+                                    <!-- //Student tracking page  -->
                                     <?php if (@$_GET['q'] == 11) {
 
                                         $result = mysqli_query($con, "SELECT * FROM user") or die('Error');
@@ -718,6 +751,7 @@ if (!isset($email)) {
                                                 </tr>';
                                             }
                                         }
+                                        // student search 
                                         $c = 0;
                                         echo
                                         '</table>
@@ -777,7 +811,7 @@ if (!isset($email)) {
                                         ';
                                     } ?>
 
-
+                                    <!-- user course history -->
                                     <?php
                                     if (@$_GET['q'] == 13) {
                                         $q = mysqli_query($con, "SELECT * FROM history ORDER BY date DESC") or die('Error197');
@@ -828,6 +862,7 @@ if (!isset($email)) {
                                                     <td>' . $w . '</td>
                                                     <td>' . $s . '</td></tr>';
                                         }
+                                        // history search
                                         echo '</table>
                                         </div>
                                         

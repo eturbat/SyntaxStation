@@ -16,7 +16,6 @@ if (isset($_GET['demail'])) {
 }
 
 //delete admin
-
 if (isset($_GET['demail1'])) {
   if (@$_GET['demail1']) {
     $demail1 = @$_GET['demail1'];
@@ -111,7 +110,7 @@ if ($_GET['q'] == 'addqns') {
 
     $qans = mysqli_query($con, "INSERT INTO answer VALUES  ('$questionID','$ansid')");
   }
-  header("location:dash.php?q=0");
+  header("location:dash.php?q=10");
 }
 
 //add modules
@@ -124,6 +123,9 @@ if ($_GET['q'] == 'addmodules') {
   header("location:dash.php?q=4&moduleID=$moduleID");
 }
 
+/* checks if the answer is correct, updates the user's score and
+progress in the database, and redirects the user to the next question or the quiz result page
+depending on the progress and score. */
 if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 2) {
 
   $moduleID = @$_GET['eid'];
@@ -191,14 +193,25 @@ if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 2) {
     header("location:account.php?q=quiz&step=2&eid=$moduleID&n=$questionNumber&t=$questionTotal&attempt=$attempt&moduleNum=$moduleNum&time=$time") or die('Error152');
   }
 
+  // /*  if the user has scored above 90% on the quiz. If the score is below
+  // 90%, the user is redirected to the quiz result page. 
   else {
     $query = mysqli_query($con, "SELECT * FROM history WHERE eid='$moduleID' AND email='$email' AND attempt='$attempt'") or die('Error115');
     $result = mysqli_fetch_assoc($query);
     $score = $result['score'];
     $scorePercentage = ($score / $questionTotal) * 100;
 
+  // If the score is above 90%, the code checks
+  // the user's progress in the course by querying the `user_progress` table in the database. If the
+  // current module number is greater than the user's progress, the user's progress is updated in the
+  // `user_progress` table.
+
     if ($scorePercentage < 90) {
       header("location:account.php?q=result&eid=$moduleID&attempt=$attempt");
+      
+      // If the current module number is the last module in the course, the user's
+      // progress is updated and the certificate is generated. Finally, the user is redirected to the quiz
+      // result page. 
     } else {
       $checkProgress = mysqli_query($con, "SELECT moduleNum FROM user_progress WHERE email = '$email'");
 
@@ -210,7 +223,7 @@ if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 2) {
 
       if ($moduleNum == $total['COUNT(*)']){
         $currentDate = date("Y-m-d");
-        mysqli_query($con, "UPDATE user_progress SET moduleNum=$moduleNum, certificate=1, date_completed='$currentDate' WHERE email='$email'");
+        mysqli_query($con, "UPDATE user_progress SET moduleNum=$moduleNum, certificate = 1, date_completed='$currentDate' WHERE email='$email'");
         header("location:account.php?q=result&eid=$moduleID&attempt=$attempt");
       }
 

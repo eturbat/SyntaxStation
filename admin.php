@@ -22,7 +22,7 @@ if($count==1) {
     $_SESSION["key"] ='Turbat123';
     $_SESSION["email"] = $email;
 
-    header("location:dash.php?q=0");
+    header("location:dash.php?q=10");
 }
 else header("location:$ref?w=Warning : Access denied");
 ?>

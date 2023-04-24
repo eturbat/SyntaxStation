@@ -52,6 +52,10 @@ if (isset($_SESSION['result'])) {
                             </div>
                         </a>
                         <ul class="nav-links px-4 mx-0">
+                            <!-- /* link to the "Home" and "My Coursess" page of an
+                            account. It also has a conditional statement that checks if the value of
+                            the "q" parameter in the URL is equal to 1 and 2, and if so, adds the "active"
+                            class to the list item to indicate that it is the current page.  */ -->
                             <li class="nav-item" <?php if (@$_GET['q'] == 1)
                                                         echo 'class="active"'; ?>>
                                 <span class="iconify" data-icon="dashicons:admin-home" data-width="30" data-height="30"></span>
@@ -69,6 +73,10 @@ if (isset($_SESSION['result'])) {
                                 $cert = mysqli_query($con, "SELECT certificate FROM user_progress WHERE email='$email'");
                                 $certificate = mysqli_fetch_assoc($cert);
 
+                                // /* checking if the value of the "certificate" key in
+                                // the  array is equal to 1. If it is, it will display a
+                                // navigation item with a certificate icon and a link to the
+                                // "certificate.php" page with the "certificate" parameter set to 1. */
                                 if ($certificate["certificate"] == 1){
                                     echo '
                                     <li class="nav-item">
@@ -97,8 +105,18 @@ if (isset($_SESSION['result'])) {
                                 $email = $_SESSION['email'];
 
                                 include_once 'dbConnection.php';
-                                echo '<span class="pull-right top title1" ><span class="log1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Welcome,</span> <a href="account.php?q=1" class="log log1">' . $name . '</a>&nbsp;|&nbsp;<a href="logout.php?q=account.php" class="log"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Signout</button></a></span>';
-                            } ?>
+                                echo '
+                                <span class="pull-right top title1">
+                                    <span class="log1">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                        Welcome, </span> 
+                                        <a href="account.php?q=1" class="log log1">' . $name . '</a>|
+                                        <a href="logout.php?q=index.php" class="log">
+                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Signout</button>
+                                        </a>
+                                </span>';
+                            } 
+                            ?>
                         </div>
                     </div>
                     <div class="bg">
@@ -164,6 +182,9 @@ if (isset($_SESSION['result'])) {
                                                 $query = mysqli_query($con, "SELECT moduleNum FROM user_progress WHERE email='$user_email'") or die('Error98');
                                                 $moduleNum = mysqli_fetch_assoc($query);
 
+                                                // /*  It checks if the current course number is less than or equal to the
+                                                // total number of courses and if it is, it generates
+                                                // the course container */
                                                 if ($c - 1 <= $moduleNum['moduleNum']) {
                                                     echo '
                                                         <div class="swiper-slide">
@@ -229,7 +250,10 @@ if (isset($_SESSION['result'])) {
                                                 <div class="swiper-button-next"></div>';
                                         }
                                         ?>
-
+                                        <!-- // Course reading starts (it checks)
+                                        /* checking if the current parameters include 'q=quiz' and 'step=1'. If so,
+                                        it retrieves information from a database about a
+                                        specific course  and displays it on the page. */ -->
                                         <?php
                                         if (@$_GET['q'] == 'quiz' && @$_GET['step'] == 1) {
 
@@ -241,6 +265,8 @@ if (isset($_SESSION['result'])) {
                                                 $mread = $row['mread'];
 
                                                 //check if mread is a pdf, ppt, or text
+                                                // If the course reading is a PDF or PowerPoint file, it is displayed using an object or iframe tag respectively.
+                                                // If it is a text file, it is displayed as plain text.
                                                 $check = explode("/", $mread);
                                                 $check = explode(".", end($check));
 
@@ -405,14 +431,8 @@ if (isset($_SESSION['result'])) {
                                         <?php
 
 
-
-
-
-
-                                            // ------------------------------------------------------
-
                                         }
-                                        //result display
+                                        //assessment result display
                                         if (@$_GET['q'] == 'result' && @$_GET['eid']) {
                                             $eid = @$_GET['eid'];
                                             $attempt = $_GET['attempt'];
@@ -448,9 +468,11 @@ if (isset($_SESSION['result'])) {
 
                                         <!--quiz end-->
                                         <?php
-                                        //history start
+                                        //shows course history 
+                                        // /* checks if the value of the 'q' parameter in the GET request is equal to 2.. */
                                         if (@$_GET['q'] == 2) {
                                             $q = mysqli_query($con, "SELECT * FROM history WHERE email='$email' ORDER BY date DESC") or die('Error197');
+                                            // If it is, then it retrieves the user's quiz history from the database and displays it in a table format.
                                             echo  '
                                         <div class="panel title">
                                             <table class="table table-striped title1" >

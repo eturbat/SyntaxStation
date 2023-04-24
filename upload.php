@@ -1,3 +1,5 @@
+<!-- /* handles the submission of a form that includes a file upload field named
+"moduleFile". */ -->
 <?php
 include_once 'dbConnection.php';
 

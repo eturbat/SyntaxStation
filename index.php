@@ -16,6 +16,11 @@
     echo '<script>alert("' . @$_GET['w'] . '");</script>';
   }
   ?>
+<!-- /* function that validates a form with three input fields: name, email,
+and password. It checks if the name field is filled out, if the email field is a valid Wooster email
+address, and if the password field is filled out, between 5 and 25 characters long, and matches the
+confirm password field. If any of these conditions are not met, an alert message is displayed and
+the form submission is prevented. */ -->
   <script>
     function validateForm() {
       var y = document.forms["form"]["name"].value;
@@ -346,7 +351,7 @@
 <body>
 
   <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-
+<!-- Navbar with admin, sign in, signup -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">

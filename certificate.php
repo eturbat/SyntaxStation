@@ -105,6 +105,7 @@ button.  */ -->
 
 <body>
 
+    <!-- /* displays a certificate of completion for a course. */ -->
     <div id="certificate" class="outer-border">
         <div class="inner-dotted-border">
             <span class="certification">Certificate of Completion</span>
@@ -112,7 +113,7 @@ button.  */ -->
             <span class="certify"><i>This is to certify that</i></span>
             <br><br>
             <span class="name"><b><?php echo $name ?></b></span><br /><br />
-            <span class="certify"><i>has successfully completed the all the courses of the program.</i></span> <br /><br />
+            <span class="certify"><i>has successfully completed the all the courses of</i></span> <br /><br />
             <span class="fs-30">SyntaxStation</span> <br /><br />
             <div class="image">
                 <img src="images/logo_wooster.png" alt="">

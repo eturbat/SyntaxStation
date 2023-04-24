@@ -1,3 +1,5 @@
+<!-- /* if admin's insertion is successful, it redirects the user to a dashboard page with a
+success message. */ -->
 <?php
 include_once 'dbConnection.php';
 $email = $_POST['email'];
