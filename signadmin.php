@@ -1,4 +1,3 @@
-
 <?php
 include_once 'dbConnection.php';
 $email = $_POST['email'];

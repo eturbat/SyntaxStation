@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
@@ -45,7 +46,7 @@ if (isset($_SESSION['result'])) {
             <div class="row g-0 flex-nowrap">
                 <div class="col-lg-2 col-sm-2 col-md-3 px-sm-0 px-0" style="background-color:#2c3e50;">
                     <div class="d-flex flex-column align-items-center align-items-sm-start px-0 mx-0 pt-2 text-white min-vh-100">
-                        <a href="https://www.example.com" class="d-flex align-items-center pb-4 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <a href="http://csweb.wooster.edu/" class="d-flex align-items-center pb-4 mb-md-0 me-md-auto text-white text-decoration-none">
                             <div class="logo">
                             <img src="./images/SSLogo.png" alt="" width="220" style="margin-bottom: 5px; margin-left: 20px; margin-top: 10px">
                             </div>
@@ -61,7 +62,23 @@ if (isset($_SESSION['result'])) {
                                 <span class="iconify" data-icon="ant-design:history-outlined" data-width="30" data-height="30"></span>
                                 <a href="account.php?q=2" class="nav-link">My Courses</a>
                             </li>
-                           
+                            <?php 
+                                $email = $_SESSION['email'];
+
+                                //  Get the user's current progress
+                                $cert = mysqli_query($con, "SELECT certificate FROM user_progress WHERE email='$email'");
+                                $certificate = mysqli_fetch_assoc($cert);
+
+                                if ($certificate["certificate"] == 1){
+                                    echo '
+                                    <li class="nav-item">
+                                        <span class="iconify" data-icon="icon-park-solid:certificate" data-width="30" data-height="30"></span>
+                                        <a href="certificate.php?certificate=1" class="nav-link">View Certificate</a>
+                                    </li>
+                                    ';
+                                }
+                            
+                            ?>
                         </ul>
                         <hr>
 
@@ -126,10 +143,6 @@ if (isset($_SESSION['result'])) {
 
                                             $c = 1;
                                             $user_email = $_SESSION['email'];
-                                            /* Fetching the data from the database and displaying it in the
-
-                                            
-table. */
                                         ?>
 
                                             <!-- Slider main container -->
@@ -151,7 +164,6 @@ table. */
                                                 $query = mysqli_query($con, "SELECT moduleNum FROM user_progress WHERE email='$user_email'") or die('Error98');
                                                 $moduleNum = mysqli_fetch_assoc($query);
 
-
                                                 if ($c - 1 <= $moduleNum['moduleNum']) {
                                                     echo '
                                                         <div class="swiper-slide">
@@ -159,16 +171,19 @@ table. */
                                                             <div class="module-container active">
                                                                 <div class="icon"></div>
                                                                 <div class="module-heading">
-                                                                    <h3 class="mx-0 my-0">' . $title . '</h3>
+                                                                    <h3 class="mx-0 my-0">Course ' . $c++ . '</h3>
                                                                     <span>•</span>
                                                                     <p class="mx-0 my-0 py-0 px-0">' . $time . ' min</p>
+                                                                </div>
+                                                                <div class="description">
+                                                                    <p class="mx-0 my-0 py-2">' . $title . '</p>
                                                                 </div>
                                                                 <div class="details">
                                                                     <p class="mx-0 my-0 py-2">Total questions: ' . $total . '</p>
                                                                     <p class="mx-0 my-0 py-2">Total points: ' . $sahi * $total . '</p>
                                                                 </div>
                                                                 <div class="button py-3">
-                                                                    <a class="me-2 my-0" href="account.php?q=quiz&step=1&eid=' . $eid . '&moduleNum=' . ($c - 1) . '&time=' . $time . '" style="color: #2c3e50;">Start Course</a>
+                                                                    <a class="me-2 my-0" href="account.php?q=quiz&step=1&eid=' . $eid . '&moduleNum=' . ($c - 1) . '&time=' . $time . '" style="color: #922e2e;">Start Module</a>
                                                                     <img src="./images/eva_external-link-outline.png" alt="" width="20">
                                                                 </div>
                                                             </div>
@@ -177,6 +192,7 @@ table. */
                                                 }
                                                 //<td><b><a href="account.php?q=quiz&step=1&eid='.$eid.'&mid='.$total.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></td></tr>';
                                                 //start button above
+                                                // if user not finished current course, it still locked
                                                 else {
                                                     echo '
                                                         <div class="swiper-slide">
@@ -184,14 +200,12 @@ table. */
                                                             <div class="module-container inactive">
                                                                 <div class="icon"></div>
                                                                 <div class="module-heading">
-                                                                    <h3 class="mx-0 my-0">Module ' . $c++ . '</h3>
+                                                                    <h3 class="mx-0 my-0">Course ' . $c++ . '</h3>
                                                                     <span>•</span>
                                                                     <p class="mx-0 my-0 py-0 px-0">' . $time . ' min</p>
                                                                 </div>
                                                                 <div class="description">
-                                                                    <p class="mx-0 my-0 py-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo molestias sit quam
-                                                                        vel quod
-                                                                        quis asperiores tempore praesentium, magnam eos!</p>
+                                                                    <p class="mx-0 my-0 py-2">' . $title . '</p>
                                                                 </div>
                                                                 <div class="details">
                                                                     <p class="mx-0 my-0 py-2">Total questions: ' . $total . '</p>
@@ -333,7 +347,7 @@ table. */
                                                 }
                                                 $q = mysqli_query($con, "SELECT * FROM options WHERE qid='$qid' ");
                                                 echo '
-                                                    <form action="update.php?q=quiz&step=2&eid=' . $eid . '&n=' . $sn . '&t=' . $total . '&qid=' . $qid . '&attempt=' . $attempt . '&moduleNum=' . $moduleNum . '&time=' . $_GET['time'] . '" method="POST"  class="form-horizontal">
+                                                    <form action="update.php?q=quiz&step=2&eid=' . $eid . '&n=' . $sn . '&t=' . $total . '&qid=' . $qid . '&attempt=' . $attempt . '&moduleNum=' . $moduleNum . '&time=' . $_GET['time'] . '"method="POST"  class="form-horizontal">
                                                     <br />';
 
                                                 echo ' <div class="options">';
@@ -472,45 +486,6 @@ table. */
                                                 }
                                                 $c++;
                                                 echo '<tr><td>' . $c . '</td><td>' . $title . '</td><td>' . $qa . '</td><td>' . $r . '</td><td>' . $w . '</td><td>' . $s . '</td></tr>';
-                                            }
-                                            echo '</table></div>';
-                                        }
-
-                                        //ranking start
-                                        if (@$_GET['q'] == 3) {
-                                            $q = mysqli_query($con, "SELECT * FROM rank  ORDER BY score DESC ") or die('Error223');
-                                            echo  '
-                                        <div class="panel title">
-                                            <table class="table table-striped title1" >
-                                                <tr style="color:black">
-                                                    <td>
-                                                        <b>Rank</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Name</b>
-                                                    </td>   
-                                                    <td>
-                                                        <b>Gender</b>
-                                                    </td>   
-                                                    <td>
-                                                        <b>College</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Score</b>
-                                                    </td>
-                                                </tr>';
-                                            $c = 0;
-                                            while ($row = mysqli_fetch_array($q)) {
-                                                $e = $row['email'];
-                                                $s = $row['score'];
-                                                $q12 = mysqli_query($con, "SELECT * FROM user WHERE email='$e' ") or die('Error231');
-                                                while ($row = mysqli_fetch_array($q12)) {
-                                                    $name = $row['name'];
-                                                    $gender = $row['gender'];
-                                                    $college = $row['college'];
-                                                }
-                                                $c++;
-                                                echo '<tr><td style="color:#99cc32"><b>' . $c . '</b></td><td>' . $name . '</td><td>' . $gender . '</td><td>' . $college . '</td><td>' . $s . '</td><td>';
                                             }
                                             echo '</table></div>';
                                         }

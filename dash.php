@@ -37,6 +37,9 @@
     </script>
 </head>
 
+<!-- /* 
+checking if the email variable is set in the session. If it is not set, the code redirects the user
+to the index.php page. */ -->
 <?php
 session_start();
 include_once 'dbConnection.php';
@@ -53,28 +56,41 @@ if (!isset($email)) {
             <div class="row g-0 flex-nowrap">
                 <div class="col-lg-2 col-sm-2 col-md-3 px-sm-0 px-0" style="background-color:#2c3e50;">
                     <div class="d-flex flex-column align-items-center align-items-sm-start px-0 mx-0 pt-2 text-white min-vh-100">
-                        <a href="https://www.ashesi.edu.gh/" class="d-flex align-items-center pb-4 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <a href="http://csweb.wooster.edu/" class="d-flex align-items-center pb-4 mb-md-0 me-md-auto text-white text-decoration-none">
                             <div class="logo">
                             <img src="./images/SSLogo.png" alt="" width="220" style="margin-bottom: 5px; margin-left: 20px; margin-top: 10px">
                             </div>
                         </a>
                         <ul class="nav-links px-3 mx-0">
+                            <!-- /* link to a page "dash.php" with
+                            a query parameter "q" set to 10. It also has a conditional statement
+                            that checks if the value of the "q" parameter is equal to 10, and if so,
+                            adds the "active" class to the list item.  */ -->
                             <li class="nav-item" <?php if (@$_GET['q'] == 10) echo 'class="active"'; ?>>
                                 <span class="iconify" data-icon="ic:baseline-view-module" data-width="30" data-height="30"></span>
                                 <a href="dash.php?q=10">Available Courses<span class="sr-only">(current)</span></a>
                             </li>
+                            <!-- /* link to a page "dash.php" with
+                            a query parameter "q" set to 11. It also has a conditional statement
+                            that checks if the value of the "q" parameter is equal to 11, and if so,
+                            adds the "active" class to the list item.  */ -->
                             <li class="nav-item" <?php if (@$_GET['q'] == 11) echo 'class="active"'; ?>>
                                 <span class="iconify" data-icon="clarity:group-solid" data-width="30" data-height="30"></span>
                                 <a href="dash.php?q=11">Students</a>
                             </li>
-                            <li class="nav-item" <?php if (@$_GET['q'] == 12) echo 'class="active"'; ?>>
-                                <span class="iconify" data-icon="pixelarticons:teach" data-width="30" data-height="30"></span>
-                                <a href="dash.php?q=12">Faculty</a>
-                            </li>
+                            <!-- /* link to a page "dash.php" with
+                            a query parameter "q" set to 13. It also has a conditional statement
+                            that checks if the value of the "q" parameter is equal to 13, and if so,
+                            adds the "active" class to the list item.  */ -->
                             <li class="nav-item" <?php if (@$_GET['q'] == 13) echo 'class="active"'; ?>>
                                 <span class="iconify" data-icon="ic:baseline-view-module" data-width="30" data-height="30"></span>
                                 <a href="dash.php?q=13">User Course History</a>
                             </li>
+
+                            <!-- It checks if the current page is either 4 or 5 and
+                            sets the "active" class to the dropdown item accordingly. The dropdown
+                            menu has two options: "Add Course" and "Remove Course" which are linked
+                            to the respective pages.  -->
                             <li class="dropdown nav-item <?php if (@$_GET['q'] == 4 || @$_GET['q'] == 5) echo 'active'; ?>">
                                 <span class="iconify" data-icon="akar-icons:gear" data-width="30" data-height="30"></span>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Course</a>
@@ -83,6 +99,11 @@ if (!isset($email)) {
                                     <li class="nav-item"><a href=" dash.php?q=5">Remove Course</a></li>
                                 </ul>
                             </li>
+                            
+                             <!-- The dropdown menu contains two
+                            options: "Add Instructor" and "Remove Instructor". The code
+                            includes an "active" class to highlight the dropdown menu item if the
+                            URL parameter "q" is equal to 8 or 9.  -->
                             <li class="dropdown nav-item <?php if (@$_GET['q'] == 8 || @$_GET['q'] == 9) echo 'active'; ?>">
                                 <span class="iconify" data-icon="subway:admin-1" data-width="30" data-height="30"></span>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
@@ -99,6 +120,7 @@ if (!isset($email)) {
                     <div class="header admin" style="height: 50px;">
                         <div class="px-5" style="background-color:#FFFFFF;">
 
+                            <!-- /* The above code is checking if the admin is logged in */ -->
                             <?php
 
                             if (!(isset($_SESSION['email']))) {
@@ -116,137 +138,9 @@ if (!isset($email)) {
                     </div>
                     <div class="bg">
                         <div class="container ">
-                            <!--container start-->
+                            <!--admin dashboard start-->
                             <div class="row">
                                 <div class="col-lg-12 ">
-                                    <?php if (@$_GET['q'] == 0) {
-                                        $result = mysqli_query($con, "SELECT * FROM quiz ORDER BY date") or die('Error');
-                                        echo  '
-                                        <div class="panel">
-                                            <table class="table table-striped title1">
-                                                <tr>
-                                                    <td>
-                                                        <b>Courses</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Title</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Total question</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Marks</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Correct points</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Time limit</b>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>';
-                                        $c = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $title = $row['title'];
-                                            $total = $row['total'];
-                                            $sahi = $row['sahi'];
-                                            $time = $row['time'];
-                                            $eid = $row['eid'];
-
-                                            echo '<tr><td>' . $c++ . '</td><td>' . $title . '</td><td>' . $total . '</td><td>' . $sahi * $total . '</td><td>' . $sahi . '</td><td>' . $time . '&nbsp;min</td></tr>';
-                                        }
-                                        $c = 0;
-                                        echo '</table></div>';
-                                    }
-
-
-
-                                    //score details
-                                    if (@$_GET['q'] == 1) {
-                                        $q = mysqli_query($con, "SELECT distinct q.title,u.name,u.college,h.score,h.date from user u,history h,quiz q where q.email='$email' and q.eid=h.eid and h.email=u.email order by q.eid DESC") or die('Error197');
-                                        //$q=mysqli_query($con,"SELECT * FROM history WHERE email='$email' ORDER BY date DESC " )or die('Error197');
-                                        echo  '<div class="panel title">
-<table class="table table-striped title1" >
-<tr style="color:black"><td><b>S.N.</b></td><td><b>Title</b></td><td><b>Name</b></td><td><b>College</b></td><td><b>Score<b></td><td><b>Date</b></td>';
-                                        $c = 0;
-                                        while ($row = mysqli_fetch_array($q)) {
-                                            $title = $row['title'];
-                                            $name = $row['name'];
-                                            $college = $row['college'];
-                                            $score = $row['score'];
-                                            $date = $row['date'];
-                                            echo '<tr><td>' . $c++ . '</td><td>' . $title . '</td><td>' . $name . '</td><td>' . $college . '</td><td>' . $score . '</td><td>' . $date . '</td></tr>';
-                                        }
-
-                                        //$q23=mysqli_query($con,"SELECT title FROM quiz WHERE  eid='$eid' " )or die('Error208');
-                                        //while($row=mysqli_fetch_array($q23) )
-                                        //{
-                                        //$title=$row['title'];
-                                        //}
-                                        //$c++;
-                                        //echo '<tr><td>'.$c.'</td><td>'.$title.'</td><td>'.$qa.'</td><td>'.$r.'</td><td>'.$w.'</td><td>'.$s.'</td></tr>';
-                                        //}
-                                        echo '</table></div>';
-                                    }
-
-
-                                    //ranking start
-                                    if (@$_GET['q'] == 2) {
-                                        $q = mysqli_query($con, "SELECT * FROM rank  ORDER BY score DESC ") or die('Error223');
-                                        echo  '<div class="panel title">
-<table class="table table-striped title1" >
-<tr><td><b>Rank</b></td><td><b>Name</b></td><td><b>Gender</b></td><td><b>College</b></td><td><b>Score</b></td></tr>';
-                                        $c = 0;
-                                        while ($row = mysqli_fetch_array($q)) {
-                                            $e = $row['email'];
-                                            $s = $row['score'];
-                                            $q12 = mysqli_query($con, "SELECT * FROM user WHERE email='$e' ") or die('Error231');
-                                            while ($row = mysqli_fetch_array($q12)) {
-                                                $name = $row['name'];
-                                                $gender = $row['gender'];
-                                                $college = $row['college'];
-                                            }
-                                            $c++;
-                                            echo '<tr><td style="color:#99cc32"><b>' . $c . '</b></td><td>' . $name . '</td><td>' . $gender . '</td><td>' . $college . '</td><td>' . $s . '</td><td>';
-                                        }
-                                        echo '</table></div>';
-                                    }
-
-                                    ?>
-
-
-                                    <!--home closed-->
-                                    <!--users start-->
-
-
-
-                                    <!--user end-->
-
-                                    <!--feedback start-->
-
-                                    <!--feedback closed-->
-
-                                    <!--feedback reading portion start-->
-                                    <?php if (@$_GET['fid']) {
-                                        echo '<br />';
-                                        $id = @$_GET['fid'];
-                                        $result = mysqli_query($con, "SELECT * FROM feedback WHERE id='$id' ") or die('Error');
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $name = $row['name'];
-                                            $subject = $row['subject'];
-                                            $date = $row['date'];
-                                            $date = date("d-m-Y", strtotime($date));
-                                            $time = $row['time'];
-                                            $feedback = $row['feedback'];
-
-                                            echo '<div class="panel"<a title="Back to Archive" href="update.php?q1=2"><b><span class="glyphicon glyphicon-level-up" aria-hidden="true"></span></b></a><h2 style="text-align:center; margin-top:-15px;font-family: "Ubuntu", sans-serif;"><b>' . $subject . '</b></h1>';
-                                            echo '<div class="mCustomScrollbar" data-mcs-theme="dark" style="margin-left:10px;margin-right:10px; max-height:450px; line-height:35px;padding:5px;"><span style="line-height:35px;padding:5px;">-&nbsp;<b>DATE:</b>&nbsp;' . $date . '</span>
-<span style="line-height:35px;padding:5px;">&nbsp;<b>Time:</b>&nbsp;' . $time . '</span><span style="line-height:35px;padding:5px;">&nbsp;<b>By:</b>&nbsp;' . $name . '</span><br />' . $feedback . '</div></div>';
-                                        }
-                                    } ?>
-                                    <!--Feedback reading portion closed-->
-
-                                    <!--add quiz start-->
                                     <?php
                                     if (@$_GET['q'] == 4 && !(@$_GET['step'])) {
                                         $eid = $_GET['moduleID'];
@@ -723,7 +617,7 @@ if (!isset($email)) {
                                     <?php
                                     if (@$_GET['q'] == 10) {
 
-                                        $result = mysqli_query($con, "SELECT * FROM quiz ORDER BY date DESC") or die('Error');
+                                        $result = mysqli_query($con, "SELECT * FROM quiz ORDER BY date") or die('Error');
                                         echo  '
                                         <div class="panel">
                                             <table class="table table-striped title1">
@@ -881,125 +775,6 @@ if (!isset($email)) {
                                         </script>
                                         
                                         ';
-                                    } ?>
-
-                                    <?php if (@$_GET['q'] == 12) {
-
-                                        $result = mysqli_query($con, "SELECT * FROM user") or die('Error');
-                                        echo  '
-                                        <div class="panel">
-                                            <input id="facultySearch" type="text" placeholder="Search Faculty Members" class="form-control my-3" />
-                                          
-                                            <table class="table table-striped title1">
-                                                <tr>
-                                                    <td>
-                                                        <b>Name</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Gender</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Email</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Mobile</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>Course Progress</b>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>';
-                                        $c = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
-                                            $name = $row['name'];
-                                            $mob = $row['mob'];
-                                            $gender = $row['gender'];
-                                            $email = $row['email'];
-                                            $role = $row['role'];
-
-                                            $moduleLevel = mysqli_query($con, "SELECT moduleNum FROM user_progress WHERE email='$email'");
-                                            $moduleProgress = mysqli_fetch_assoc($moduleLevel);
-                                            $totalModules = mysqli_query($con, "SELECT COUNT(*) FROM modules");
-                                            $total = mysqli_fetch_assoc($totalModules);
-
-
-                                            $progress = ($moduleProgress["moduleNum"] == $total["COUNT(*)"]) ? "Done" : $moduleProgress["moduleNum"];
-
-                                            if ($role != "Student") {
-                                                echo
-                                                '<tr>
-                                                <td>' . $name . '</td>
-                                                <td>' . $gender . '</td>
-                                                <td>' . $email . '</td>
-                                                <td>' . $mob . '</td>
-                                                <td>' . $progress . '</td>
-                                                <td>
-                                                    <a title="Delete User" href="update.php?role=faculty&demail=' . $email . '">
-                                                        <b>
-                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        </b>
-                                                    </a>
-                                                </td>
-                                            </tr>';
-                                            }
-                                        }
-                                        $c = 0;
-                                        echo
-                                        '</table>
-                                    </div>
-
-                                    <script>
-                                            $("#facultySearch").keyup(function() {
-                                                
-                                            $.get("search.php", {search: "Faculty", searchValue: $("#facultySearch").val()}, function(data){
-                                                var result = JSON.parse(data);
-                                                
-                                                $("tbody").html(`<tr>
-                                                        <td>
-                                                            <b>Name</b>
-                                                        </td>
-                                                        <td>
-                                                            <b>Gender</b>
-                                                        </td>
-                                                        <td>
-                                                            <b>Email</b>
-                                                        </td>
-                                                        <td>
-                                                            <b>Mobile</b>
-                                                        </td>
-                                                        <td>
-                                                            <b>Course Progress</b>
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>`
-                                                );
-
-                                                for (var i = 0; i < result.length; i++){
-                                                   
-                                                    $("tbody").append(
-                                                        `<tr>
-                                                        <td> ${result[i][0].toString()} </td> 
-                                                        <td> ${result[i][1].toString()} </td>
-                                                        <td> ${result[i][2].toString()} </td>
-                                                        <td> ${result[i][3].toString()} </td>
-                                                        <td> ${result[i][6].toString()} </td>
-                                                        <td>  
-                                                            <a title="Delete User" href="update.php?role=student&demail=${result[i][2].toString()}">
-                                                                <b>
-                                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                                </b>
-                                                            </a> 
-                                                        </td>
-                                                        </tr>
-                                                        `
-                                                    )
-                                                }
-                                            });
-                                        });
-                                    
-                                    </script>
-                                    
-                                    ';
                                     } ?>
 
 

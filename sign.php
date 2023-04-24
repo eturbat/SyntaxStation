@@ -15,6 +15,7 @@ if($q3) {
     session_start();
     $_SESSION["email"] = $email;
     $_SESSION["name"] = $name;
+    $_SESSION["moduleNum"] = $moduleNum;
 
     $moduleSetUp = mysqli_query($con, "INSERT INTO user_progress VALUES (0, '$email', 0, NULL)");
     header("location:account.php?q=1");
